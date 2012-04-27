@@ -14,6 +14,10 @@
   %ul
     %li
       %a{:href=>$googleSearcher.searchUrl(@addressQuery),:target=>"_blank"} Google
+    %li      
+      Map search restricted to:
+      - for region in $googleRegionSearchers do
+        %a{:href=>region.searchUrl(@addressQuery),:target=>"_blank"} #{region.name}
 
   %ul
     - for site in $realEstateSites do

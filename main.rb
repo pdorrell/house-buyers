@@ -26,6 +26,30 @@ end
 
 $googleSearcher = GoogleSearcher.new()
 
+class GoogleMapsSearcher
+  def searchUrl(query)
+    "http://maps.google.com/maps?q=#{CGI.escape(query)}"
+  end
+  
+end
+
+$googleMapsSearcher = GoogleMapsSearcher.new()
+
+class GoogleSearchInRegion
+  attr_reader :name, :queryString
+  def initialize(name, queryString)
+    @name = name
+    @queryString = queryString
+  end
+  
+  def searchUrl(query)
+    $googleMapsSearcher.searchUrl("#{query} #{@queryString}")
+  end
+end
+
+$googleRegionSearchers = [GoogleSearchInRegion.new("Wellington", "wellington new zealand"), 
+                          GoogleSearchInRegion.new("NZ", "new zealand")]
+
 class RealEstateSite
   attr_reader :name, :domain
   
@@ -37,6 +61,8 @@ class RealEstateSite
   def searchUrl(query)
     $googleSearcher.searchUrlRestricted(query, @domain)
   end
+  
+  
 end
 
 $realEstateSites = [RealEstateSite.new("TradeMe", "trademe.co.nz"), 
