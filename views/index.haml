@@ -1,0 +1,11 @@
+%h1 House Buyers
+
+%form{ :action => "", :method => "get"}
+  %label{:for => "address"} Address:
+  %input{:type => "text", :name => "address", :class => "text", :size => "60", :value => @address}
+  %input{:type => "submit", :value => "Search", :class => "button"}
+
+%p 
+  Search links for address 
+  %b= @address
+  =":"

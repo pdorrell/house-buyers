@@ -3,6 +3,9 @@ $stdout.sync = true
 require 'bundler'
 require 'sinatra'
 
-get '/hi' do
-  "Hola Mundo!"
+set :haml, :format => :html5
+
+get '/' do
+  @address = params[:address]
+  haml :index
 end
