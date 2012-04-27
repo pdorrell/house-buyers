@@ -5,23 +5,24 @@
   %input{:type => "text", :name => "address", :class => "text", :size => "60", :value => @address}
   %input{:type => "submit", :value => "Search", :class => "button"}
 
-%p 
-  Search links for address 
-  =succeed ":" do
-    %b= @address
+-if @address
+  %p 
+    Search links for address 
+    =succeed ":" do
+      %b= @address
 
-%ul
-  %li
-    %a{:href=>$googleSearcher.searchUrl(@addressQuery)} Google
-
-%ul
-  - for site in $realEstateSites do
+  %ul
     %li
-      %a{:href=>site.searchUrl(@addressQuery)}
-        =site.name
+      %a{:href=>$googleSearcher.searchUrl(@addressQuery),:target=>"_blank"} Google
 
-%ul
-  - for site in $companySites do
-    %li
-      %a{:href=>site.searchUrl(@addressQuery)}
-        =site.name
+  %ul
+    - for site in $realEstateSites do
+      %li
+        %a{:href=>site.searchUrl(@addressQuery),:target=>"_blank"}
+          =site.name
+
+  %ul
+    - for site in $companySites do
+      %li
+        %a{:href=>site.searchUrl(@addressQuery),:target=>"_blank"}
+          =site.name

@@ -44,8 +44,18 @@ $realEstateSites = [RealEstateSite.new("TradeMe", "trademe.co.nz"),
 
 $companySites = [RealEstateSite.new("Tommys", "tommys.co.nz")]
 
+def reduced(paramValue)
+  if paramValue != nil
+    paramValue = paramValue.strip
+    if paramValue == ""
+      paramValue = nil
+    end
+  end
+  paramValue
+end
+
 get '/' do
-  @address = params[:address]
+  @address = reduced(params[:address])
   @addressQuery = spacified(@address)
   haml :index
 end
