@@ -42,6 +42,8 @@ end
 $realEstateSites = [RealEstateSite.new("TradeMe", "trademe.co.nz"), 
                     RealEstateSite.new("Open2View", "open2view.com")]
 
+$companySites = [RealEstateSite.new("Tommys", "tommys.co.nz")]
+
 get '/' do
   @address = params[:address]
   @addressQuery = spacified(@address)

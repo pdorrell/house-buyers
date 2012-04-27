@@ -19,3 +19,9 @@
     %li
       %a{:href=>site.searchUrl(@addressQuery)}
         =site.name
+
+%ul
+  - for site in $companySites do
+    %li
+      %a{:href=>site.searchUrl(@addressQuery)}
+        =site.name
