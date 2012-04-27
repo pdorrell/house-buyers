@@ -7,5 +7,6 @@
 
 %p 
   Search links for address 
-  %b= @address
-  =":"
+  =succeed ":" do
+    %b= @address
+
