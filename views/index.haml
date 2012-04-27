@@ -11,5 +11,11 @@
     %b= @address
 
 %ul
-  %li 
-    %a{:href=>@googleSearchUrl} Google
+  %li
+    %a{:href=>$googleSearcher.searchUrl(@addressQuery)} Google
+
+%ul
+  - for site in $realEstateSites do
+    %li
+      %a{:href=>site.searchUrl(@addressQuery)}
+        =site.name
