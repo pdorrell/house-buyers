@@ -3,6 +3,7 @@ $stdout.sync = true
 require 'bundler'
 require 'sinatra'
 require 'cgi'
+require 'haml'
 
 set :haml, :format => :html5
 
