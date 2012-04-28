@@ -67,7 +67,8 @@ class RealEstateSite
 end
 
 $realEstateSites = [RealEstateSite.new("TradeMe", "trademe.co.nz"), 
-                    RealEstateSite.new("Open2View", "open2view.com")]
+                    RealEstateSite.new("Open2View", "open2view.com"), 
+                    RealEstateSite.new("RealEstate.co.nz", "realestate.co.nz")]
 
 $companySites = [RealEstateSite.new("Tommys", "tommys.co.nz")]
 
