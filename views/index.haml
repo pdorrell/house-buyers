@@ -24,8 +24,8 @@
         %a{:href=>region.searchUrl(@addressQuery),:target=>"_blank"} #{region.name}
 
   - for siteGroup in $siteGroups do
-    %ul
+    %p
+      %b
+        ="#{siteGroup.title}:"
       - for site in siteGroup.sites do
-        %li
-          %a{:href=>site.searchUrl(@addressQuery),:target=>"_blank"}
-            =site.name
+        %a{:href=>site.searchUrl(@addressQuery),:target=>"_blank"} #{site.name}
