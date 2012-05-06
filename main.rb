@@ -70,7 +70,24 @@ $realEstateSites = [RealEstateSite.new("TradeMe", "trademe.co.nz"),
                     RealEstateSite.new("Open2View", "open2view.com"), 
                     RealEstateSite.new("RealEstate.co.nz", "realestate.co.nz")]
 
-$companySites = [RealEstateSite.new("Tommys", "tommys.co.nz")]
+$companySites = [
+                 RealEstateSite.new("Bayleys", "bayleys.co.nz"), 
+                 RealEstateSite.new("Borders", "borders.net.nz"), 
+                 RealEstateSite.new("Century 21", "century21.co.nz"), 
+                 RealEstateSite.new("Harcourts", "harcourts.co.nz"), 
+                 RealEstateSite.new("Jewetts", "jewetts.co.nz"), 
+                 RealEstateSite.new("LJ Hooker", "ljhooker.co.nz"), 
+                 RealEstateSite.new("First National", "guardianfirstnational.co.nz"), 
+                 RealEstateSite.new("Just Patterson", "justpaterson.co.nz"), 
+                 RealEstateSite.new("Professionals", "professionals.co.nz"), 
+                 RealEstateSite.new("Ray White", "rwwellingtoncity.co.nz"), 
+                 RealEstateSite.new("Remax", "leaders.co.nz"), 
+                 RealEstateSite.new("Tommys", "tommys.co.nz")
+                ]
+
+$otherSites = [
+                 RealEstateSite.new("Homesell", "homesell.co.nz")
+              ]               
 
 def reduced(paramValue)
   if paramValue != nil
