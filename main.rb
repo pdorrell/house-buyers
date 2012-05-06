@@ -85,6 +85,11 @@ $agencySites = [
                  RealEstateSite.new("Tommys", "tommys.co.nz")
                 ]
 
+$valuationSites = [
+                   RealEstateSite.new("QV", "qv.co.nz"), 
+                   RealEstateSite.new("Zoodle", "zoodle.co.nz"), 
+                  ]
+
 $otherSites = [
                  RealEstateSite.new("Homesell", "homesell.co.nz")
               ]
@@ -99,6 +104,7 @@ end
 
 $siteGroups = [SiteGroup.new("Generic listing sites", $genericSites), 
                SiteGroup.new("Real estate agencies", $agencySites), 
+               SiteGroup.new("Valuation sites", $valuationSites), 
                SiteGroup.new("Other sites", $otherSites)]
 
 def reduced(paramValue)
