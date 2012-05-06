@@ -25,6 +25,16 @@ class GoogleSearcher
   end
 end
 
+class SiteRestrictedGoogleSearcher < GoogleSearcher
+  def initialize(siteDomain)
+    @siteDomain = siteDomain
+  end
+  
+  def searchUrl(query)
+    "http://www.google.com/search?as_q=#{CGI.escape("site:" + @siteDomain + " " + query)}"
+  end
+end
+
 $googleSearcher = GoogleSearcher.new()
 
 class GoogleMapsSearcher
@@ -57,13 +67,13 @@ class RealEstateSite
   def initialize(name, domain)
     @name = name
     @domain = domain
+    @searcher = SiteRestrictedGoogleSearcher.new(@domain)
   end
   
   def searchUrl(query)
-    $googleSearcher.searchUrlRestricted(query, @domain)
+    @searcher.searchUrl(query)
   end
-  
-  
+
 end
 
 $genericSites = [RealEstateSite.new("TradeMe", "trademe.co.nz"), 
