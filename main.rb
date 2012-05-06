@@ -66,11 +66,11 @@ class RealEstateSite
   
 end
 
-$realEstateSites = [RealEstateSite.new("TradeMe", "trademe.co.nz"), 
+$genericSites = [RealEstateSite.new("TradeMe", "trademe.co.nz"), 
                     RealEstateSite.new("Open2View", "open2view.com"), 
                     RealEstateSite.new("RealEstate.co.nz", "realestate.co.nz")]
 
-$companySites = [
+$agencySites = [
                  RealEstateSite.new("Bayleys", "bayleys.co.nz"), 
                  RealEstateSite.new("Borders", "borders.net.nz"), 
                  RealEstateSite.new("Century 21", "century21.co.nz"), 
@@ -87,7 +87,19 @@ $companySites = [
 
 $otherSites = [
                  RealEstateSite.new("Homesell", "homesell.co.nz")
-              ]               
+              ]
+
+class SiteGroup
+  attr_reader :title, :sites
+  def initialize(title, sites)
+    @title = title
+    @sites = sites
+  end
+end
+
+$siteGroups = [SiteGroup.new("Generic listing sites", $genericSites), 
+               SiteGroup.new("Real estate agencies", $agencySites), 
+               SiteGroup.new("Other sites", $otherSites)]
 
 def reduced(paramValue)
   if paramValue != nil

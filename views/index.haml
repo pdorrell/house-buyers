@@ -23,20 +23,9 @@
       - for region in $googleRegionSearchers do
         %a{:href=>region.searchUrl(@addressQuery),:target=>"_blank"} #{region.name}
 
-  %ul
-    - for site in $realEstateSites do
-      %li
-        %a{:href=>site.searchUrl(@addressQuery),:target=>"_blank"}
-          =site.name
-
-  %ul
-    - for site in $companySites do
-      %li
-        %a{:href=>site.searchUrl(@addressQuery),:target=>"_blank"}
-          =site.name
-
-  %ul
-    - for site in $otherSites do
-      %li
-        %a{:href=>site.searchUrl(@addressQuery),:target=>"_blank"}
-          =site.name
+  - for siteGroup in $siteGroups do
+    %ul
+      - for site in siteGroup.sites do
+        %li
+          %a{:href=>site.searchUrl(@addressQuery),:target=>"_blank"}
+            =site.name
