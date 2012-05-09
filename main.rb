@@ -76,6 +76,30 @@ class RealEstateSite
 
 end
 
+class WellingtonRVSite
+  
+  @@addressRegex = /^([^\d]*(\d+))([^\d]+(\d+)|)[^\d\s]*\s+([^\s]+)/
+  
+  attr_reader :name
+  
+  def initialize(name)
+    @name = name
+  end
+  
+  def searchUrl(query)
+    addressMatch = @@addressRegex.match(query)
+    #puts "query = #{query.inspect}, addressMatch = #{addressMatch.inspect}"
+    if addressMatch
+      streetNumber = if addressMatch[4] then addressMatch[4] else addressMatch[2] end
+      name = addressMatch[5]
+      "http://www.wellington.govt.nz/services/rates/search/results.php" + 
+        "?type=address&streetStartNumber=#{streetNumber}&streetName=#{name}"
+    else
+      "http://www.wellington.govt.nz/services/rates/search/search.html"
+    end
+  end
+end
+
 $genericSites = [RealEstateSite.new("TradeMe", "trademe.co.nz"), 
                     RealEstateSite.new("Open2View", "nz.open2view.com"), 
                     RealEstateSite.new("RealEstate.co.nz", "realestate.co.nz")]
@@ -101,7 +125,8 @@ $valuationSites = [
                   ]
 
 $otherSites = [
-                 RealEstateSite.new("Homesell", "homesell.co.nz")
+               RealEstateSite.new("Homesell", "homesell.co.nz"), 
+               WellingtonRVSite.new("Wellington RV")
               ]
 
 class SiteGroup
