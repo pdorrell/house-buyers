@@ -23,9 +23,19 @@
       - for region in $googleRegionSearchers do
         %a{:href=>region.searchUrl(@addressQuery),:target=>"_blank"} #{region.name}
 
-  - for siteGroup in $siteGroups do
+  -for siteGroup in $siteGroups do
     %p
       %b
         ="#{siteGroup.title}:"
       - for site in siteGroup.sites do
         %a{:href=>site.searchUrl(@addressQuery),:target=>"_blank"} #{site.name}
+
+  -if @streetNumberAndName
+    %p
+      Street number:
+      %b= @streetNumber
+      name:
+      %b= @streetName
+  -else
+    %p
+      %i (Street number and name not identified in address.)

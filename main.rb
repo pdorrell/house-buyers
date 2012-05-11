@@ -100,6 +100,18 @@ class WellingtonRVSite
   end
 end
 
+def getStreetNumberAndName(address)
+  addressRegex = /^([^\d]*(\d+))([^\d]+(\d+)|)[^\d\s]*\s+([^\s]+)/
+  addressMatch = addressRegex.match(address)
+  if addressMatch
+    number = if addressMatch[4] then addressMatch[4] else addressMatch[2] end
+    name = addressMatch[5]
+    return {:number => number, :name => name}
+  else
+    return nil
+  end
+end
+
 $genericSites = [RealEstateSite.new("TradeMe", "trademe.co.nz"), 
                     RealEstateSite.new("Open2View", "nz.open2view.com"), 
                     RealEstateSite.new("RealEstate.co.nz", "realestate.co.nz")]
@@ -155,5 +167,10 @@ end
 get '/' do
   @address = reduced(params[:address])
   @addressQuery = spacified(@address)
+  @streetNumberAndName = getStreetNumberAndName(@addressQuery)
+  if @streetNumberAndName
+    @streetNumber = @streetNumberAndName[:number]
+    @streetName = @streetNumberAndName[:name]
+  end
   haml :index
 end
