@@ -5,12 +5,27 @@
   Address:
   =link_with_params @address, "/", :address => @address
 
--if @streetNumberAndName
+-if not @streetNumberAndName
   %p
-    Street number:
-    %b= @streetNumber
-    name:
-    %b= @streetName
--else
-  %p
-    %i (Street number and name not identified in address.)
+    %i (Could not identify street number and name in address.)
+
+%form{:action=>"http://www.wellington.govt.nz/services/rates/search/results.php",:method=>:get}
+  %h3 Street number and name required for Wellington RV search
+  %table
+    %tr
+      %td 
+        %label{:for => :streetStartNumber} Number:
+        %input{:type => :hidden, :name => :type, :value => "address"}
+      %td 
+        %input{:type => :text, :name => :streetStartNumber, :class => :text, :size => 20, :value => @streetNumber}
+      %td 
+        %label{:for => :streetName} Street name:
+      %td 
+        %input{:type => :text, :name => :streetName, :class => :text, :size => 60, :value => @streetName}
+    %tr
+      %td
+      %td
+        %input{:type => "submit", :value => "Search", :class => "button"}
+      
+  %p 
+    %i Note: do not include unit/flat/apartment number, as the format required for these varies for different addresses, and if you use the wrong format the search will not return any results at all.

@@ -88,30 +88,9 @@ class RealEstateSite
 
 end
 
-class WellingtonRVSite
-  
-  @@addressRegex = /^([^\d]*(\d+))([^\d]+(\d+)|)[^\d\s]*\s+([^\s]+)/
-  
-  attr_reader :name
-  
-  def initialize(name)
-    @name = name
-  end
-  
-  def searchUrl(query)
-    addressMatch = @@addressRegex.match(query)
-    if addressMatch
-      streetNumber = if addressMatch[4] then addressMatch[4] else addressMatch[2] end
-      name = addressMatch[5]
-      "http://www.wellington.govt.nz/services/rates/search/results.php" + 
-        "?type=address&streetStartNumber=#{streetNumber}&streetName=#{name}"
-    else
-      "http://www.wellington.govt.nz/services/rates/search/search.html"
-    end
-  end
-end
-
 def getStreetNumberAndName(address)
+  # Attempt to get street number and name of street (or first word in street name), 
+  # discarding any unit number
   addressRegex = /^([^\d]*(\d+))([^\d]+(\d+)|)[^\d\s]*\s+([^\s]+)/
   addressMatch = addressRegex.match(address)
   if addressMatch
