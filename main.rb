@@ -11,7 +11,7 @@ def queryUrl(baseUrl, paramsHash)
   if paramsHash.empty?
     baseUrl
   else
-    keysAndValues = paramsHash.keys.map { |key| "#{key}=#{CGI.escape(paramsHash[key])}" }
+    keysAndValues = paramsHash.keys.map { |key| "#{key}=#{CGI.escape(paramsHash[key].to_s)}" }
     "#{baseUrl}?#{keysAndValues.join("&")}"
   end
 end
@@ -29,7 +29,7 @@ end
 
 class GoogleSearcher
   def searchUrl(query)
-    queryUrl("http://www.google.com/search", :q => CGI.escape(query), :hl => "en")
+    queryUrl("http://www.google.com/search", :q => query)
   end
   
   def searchUrlRestricted(query, siteDomain)
@@ -43,7 +43,7 @@ class SiteRestrictedGoogleSearcher < GoogleSearcher
   end
   
   def searchUrl(query)
-    queryUrl("http://www.google.com/search", :q => CGI.escape("site:" + @siteDomain + " " + query))
+    queryUrl("http://www.google.com/search", :q => "site:" + @siteDomain + " " + query)
   end
 end
 
@@ -51,7 +51,7 @@ $googleSearcher = GoogleSearcher.new()
 
 class GoogleMapsSearcher
   def searchUrl(query)
-    queryUrl("http://maps.google.com/maps", :q => CGI.escape(query))
+    queryUrl("http://maps.google.com/maps", :q => query)
   end
   
 end
@@ -100,7 +100,6 @@ class WellingtonRVSite
   
   def searchUrl(query)
     addressMatch = @@addressRegex.match(query)
-    #puts "query = #{query.inspect}, addressMatch = #{addressMatch.inspect}"
     if addressMatch
       streetNumber = if addressMatch[4] then addressMatch[4] else addressMatch[2] end
       name = addressMatch[5]
