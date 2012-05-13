@@ -1,0 +1,16 @@
+%h1
+  Wellington RV Search
+
+%h2
+  Address:
+  =link_with_params @address, "/", :address => @address
+
+-if @streetNumberAndName
+  %p
+    Street number:
+    %b= @streetNumber
+    name:
+    %b= @streetName
+-else
+  %p
+    %i (Street number and name not identified in address.)

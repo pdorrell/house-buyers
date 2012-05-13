@@ -17,25 +17,21 @@
 
   %ul
     %li
-      %a{:href=>$googleSearcher.searchUrl(@addressQuery),:target=>"_blank"} Google
+      %a{:href=>$googleSearcher.searchUrl(@address),:target=>"_blank"} Google
     %li      
       Map search restricted to:
       - for region in $googleRegionSearchers do
-        %a{:href=>region.searchUrl(@addressQuery),:target=>"_blank"} #{region.name}
+        %a{:href=>region.searchUrl(@address),:target=>"_blank"} #{region.name}
 
   -for siteGroup in $siteGroups do
     %p
       %b
         ="#{siteGroup.title}:"
       - for site in siteGroup.sites do
-        %a{:href=>site.searchUrl(@addressQuery),:target=>"_blank"} #{site.name}
+        %a{:href=>site.searchUrl(@address),:target=>"_blank"} #{site.name}
 
-  -if @streetNumberAndName
-    %p
-      Street number:
-      %b= @streetNumber
-      name:
-      %b= @streetName
-  -else
-    %p
-      %i (Street number and name not identified in address.)
+  %h2 Searches based on address components
+
+  %ul
+    %li
+      = link_with_params "Wellington RV Search", "/wellingtonRvPreSearch", :address=>@address

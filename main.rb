@@ -7,8 +7,20 @@ require 'haml'
 
 set :haml, :format => :html5
 
-def googleSearchUrl(query)
-  return "http://www.google.com/search?as_q=#{CGI.escape(query)}"
+def queryUrl(baseUrl, paramsHash)
+  if paramsHash.empty?
+    baseUrl
+  else
+    keysAndValues = paramsHash.keys.map { |key| "#{key}=#{CGI.escape(paramsHash[key])}" }
+    "#{baseUrl}?#{keysAndValues.join("&")}"
+  end
+end
+
+helpers do
+  def link_with_params(body, baseUrl, paramsHash)
+    url = queryUrl(baseUrl, paramsHash)
+    "<a href=\"#{url}\">#{body}</a>"
+  end
 end
 
 def spacified(text)
@@ -17,7 +29,7 @@ end
 
 class GoogleSearcher
   def searchUrl(query)
-    "http://www.google.com/search?as_q=#{CGI.escape(query)}"
+    queryUrl("http://www.google.com/search", :q => CGI.escape(query), :hl => "en")
   end
   
   def searchUrlRestricted(query, siteDomain)
@@ -31,7 +43,7 @@ class SiteRestrictedGoogleSearcher < GoogleSearcher
   end
   
   def searchUrl(query)
-    "http://www.google.com/search?as_q=#{CGI.escape("site:" + @siteDomain + " " + query)}"
+    queryUrl("http://www.google.com/search", :q => CGI.escape("site:" + @siteDomain + " " + query))
   end
 end
 
@@ -39,7 +51,7 @@ $googleSearcher = GoogleSearcher.new()
 
 class GoogleMapsSearcher
   def searchUrl(query)
-    "http://maps.google.com/maps?q=#{CGI.escape(query)}"
+    queryUrl("http://maps.google.com/maps", :q => CGI.escape(query))
   end
   
 end
@@ -137,8 +149,7 @@ $valuationSites = [
                   ]
 
 $otherSites = [
-               RealEstateSite.new("Homesell", "homesell.co.nz"), 
-               WellingtonRVSite.new("Wellington RV")
+               RealEstateSite.new("Homesell", "homesell.co.nz")
               ]
 
 class SiteGroup
@@ -166,11 +177,15 @@ end
 
 get '/' do
   @address = reduced(params[:address])
-  @addressQuery = spacified(@address)
-  @streetNumberAndName = getStreetNumberAndName(@addressQuery)
+  haml :index
+end
+
+get '/wellingtonRvPreSearch' do
+  @address = reduced(params[:address])
+  @streetNumberAndName = getStreetNumberAndName(@address)
   if @streetNumberAndName
     @streetNumber = @streetNumberAndName[:number]
     @streetName = @streetNumberAndName[:name]
   end
-  haml :index
+  haml :wellingtonRvPreSearch
 end
